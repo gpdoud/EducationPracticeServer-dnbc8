@@ -17,6 +17,16 @@ namespace EducationPracticeServer.Controllers {
             _context = context;
         }
 
+        // GET: api/majors/code/cs
+        [HttpGet("code/{code}")]
+        public async Task<ActionResult<Major>> GetMajorByCode(string code) {
+            var major = await _context.Majors.SingleOrDefaultAsync(m => m.Code == code);
+            if(major == null) {
+                return NotFound();
+            }
+            return major;
+        }
+
         // GET: api/Majors
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Major>>> GetMajors() {
